@@ -19,19 +19,19 @@ import java.io.OutputStream;
 @SpringBootApplication
 @ImportRuntimeHints(MyRuntimeHints.class)
 public class DemoApplication {
-    private static final SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
-
-    static {
-        try {
-            handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
-                    .defaultProxy()
-                    .springBootApplication(DemoApplication.class)
-                    .buildAndInitialize();
-        } catch (
-                ContainerInitializationException exception) {
-            throw new RuntimeException("Could not initialize Spring Boot application", exception);
-        }
-    }
+//    private static final SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
+//
+//    static {
+//        try {
+//            handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
+//                    .defaultProxy()
+//                    .springBootApplication(DemoApplication.class)
+//                    .buildAndInitialize();
+//        } catch (
+//                ContainerInitializationException exception) {
+//            throw new RuntimeException("Could not initialize Spring Boot application", exception);
+//        }
+//    }
 
     public static void main(String[] args) throws IOException {
         SpringApplication.run(DemoApplication.class, args);
