@@ -12,6 +12,14 @@ java {
 	sourceCompatibility = '17'
 }
 
+jar {
+	enabled - false
+}
+
+tasks.named("bootBuildImage") {
+	environment = ['BP_NATIVE_IMAGE': 'true']
+}
+
 repositories {
 	mavenCentral()
 }
