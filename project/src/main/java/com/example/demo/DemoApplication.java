@@ -6,7 +6,9 @@ import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
 import com.example.demo.config.MyRuntimeHints;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ImportRuntimeHints;
 
@@ -20,7 +22,10 @@ import java.io.OutputStream;
 @ImportRuntimeHints(MyRuntimeHints.class)
 public class DemoApplication extends SpringBootServletInitializer {
     public static void main(String[] args) throws IOException, ContainerInitializationException {
-        SpringApplication.run(DemoApplication.class, args);
+        new SpringApplicationBuilder(DemoApplication.class)
+                .web(WebApplicationType.SERVLET)
+                .run(args);
+//        SpringApplication.run(DemoApplication.class, args);
         SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler = SpringBootLambdaContainerHandler
                 .getAwsProxyHandler(DemoApplication.class);
         if (args.length == 0) {
