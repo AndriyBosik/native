@@ -15,6 +15,9 @@ import java.io.OutputStream;
 @ImportRuntimeHints(MyRuntimeHints.class)
 public class DemoApplication {
     public static void main(String[] args) throws IOException {
+        if (args.length == 0) {
+            return;
+        }
         LambdaHandler handler = new LambdaHandler();
         InputStream inputStream = new ByteArrayInputStream(args[0].getBytes());
         OutputStream outputStream = new FileOutputStream("temp1.txt");
