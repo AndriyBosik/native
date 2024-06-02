@@ -9,16 +9,7 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
-}
-
-graalvmNative {
-	useArgFile = false
-	binaries {
-		main {
-			useFatJar = true
-		}
-	}
+	sourceCompatibility = '21'
 }
 
 repositories {
