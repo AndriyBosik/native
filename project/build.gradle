@@ -18,7 +18,9 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation ('org.springframework.boot:spring-boot-starter-web') {
+		exclude (module: 'spring-boot-starter-tomcat')
+	}
 	implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.0'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
