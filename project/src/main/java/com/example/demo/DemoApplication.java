@@ -5,6 +5,7 @@ import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
 import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
 import com.amazonaws.serverless.proxy.spring.SpringBootProxyHandlerBuilder;
+import com.amazonaws.serverless.proxy.spring.SpringDelegatingLambdaContainerHandler;
 import com.example.demo.config.MyRuntimeHints;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
@@ -23,16 +24,20 @@ import java.io.OutputStream;
 @ImportRuntimeHints(MyRuntimeHints.class)
 public class DemoApplication {
     public static void main(String[] args) throws IOException, ContainerInitializationException {
+//        if (args.length == 0) {
+//            SpringApplication.run(DemoApplication.class, args);
+//            return;
+//        }
+//        SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
+//                .defaultProxy()
+//                .springBootApplication(DemoApplication.class)
+//                .buildAndInitialize();
+        SpringDelegatingLambdaContainerHandler handler = new SpringDelegatingLambdaContainerHandler(DemoApplication.class);
         if (args.length == 0) {
-            SpringApplication.run(DemoApplication.class, args);
             return;
         }
-        SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
-                .defaultProxy()
-                .springBootApplication(DemoApplication.class)
-                .buildAndInitialize();
         InputStream inputStream = new ByteArrayInputStream(args[0].getBytes());
         OutputStream outputStream = new FileOutputStream("temp1.txt");
-        handler.proxyStream(inputStream, outputStream, null);
+        handler.handleRequest(inputStream, outputStream, null);
     }
 }
