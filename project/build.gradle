@@ -12,6 +12,15 @@ java {
 	sourceCompatibility = '17'
 }
 
+graalvmNative {
+	useArgFile = false
+	binaries {
+		main {
+			useFatJar = true
+		}
+	}
+}
+
 repositories {
 	mavenCentral()
 }
