@@ -12,6 +12,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportRuntimeHints;
 
 import java.io.ByteArrayInputStream;
@@ -28,16 +29,20 @@ public class DemoApplication {
 //            SpringApplication.run(DemoApplication.class, args);
 //            return;
 //        }
-//        SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
-//                .defaultProxy()
-//                .springBootApplication(DemoApplication.class)
-//                .buildAndInitialize();
-        SpringDelegatingLambdaContainerHandler handler = new SpringDelegatingLambdaContainerHandler(DemoApplication.class);
+
+//        ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+
+        System.out.println(System.getenv("AWS_LAMBDA_INITIALIZATION_TYPE"));
+        SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
+                .defaultProxy()
+                .springBootApplication(DemoApplication.class)
+                .buildAndInitialize();
         if (args.length == 0) {
             return;
         }
+
         InputStream inputStream = new ByteArrayInputStream(args[0].getBytes());
         OutputStream outputStream = new FileOutputStream("temp1.txt");
-        handler.handleRequest(inputStream, outputStream, null);
+        handler.proxyStream(inputStream, outputStream, null);
     }
 }
