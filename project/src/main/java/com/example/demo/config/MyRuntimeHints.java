@@ -10,7 +10,6 @@ public class MyRuntimeHints implements RuntimeHintsRegistrar {
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
         try {
             hints.reflection()
-                    .registerType(LambdaHandler.class)
                     .registerConstructor(ParameterNamesModule.class.getDeclaredConstructor(), ExecutableMode.INVOKE);
         } catch (NoSuchMethodException exception) {
             throw new RuntimeException(exception);
