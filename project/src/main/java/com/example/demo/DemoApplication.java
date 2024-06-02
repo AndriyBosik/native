@@ -23,11 +23,10 @@ public class DemoApplication {
 
     static {
         try {
-//            handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
-//                    .defaultProxy()
-//                    .springBootApplication(DemoApplication.class)
-//                    .buildAndInitialize();
-            handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(DemoApplication.class);
+            handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
+                    .defaultProxy()
+                    .springBootApplication(DemoApplication.class)
+                    .buildAndInitialize();
         } catch (
                 ContainerInitializationException exception) {
             throw new RuntimeException("Could not initialize Spring Boot application", exception);
@@ -36,11 +35,11 @@ public class DemoApplication {
 
     public static void main(String[] args) throws IOException {
         SpringApplication.run(DemoApplication.class, args);
-        if (args.length == 0) {
-            return;
-        }
-        InputStream inputStream = new ByteArrayInputStream(args[0].getBytes());
-        OutputStream outputStream = new FileOutputStream("temp1.txt");
-        handler.proxyStream(inputStream, outputStream, null);
+//        if (args.length == 0) {
+//            return;
+//        }
+//        InputStream inputStream = new ByteArrayInputStream(args[0].getBytes());
+//        OutputStream outputStream = new FileOutputStream("temp1.txt");
+//        handler.proxyStream(inputStream, outputStream, null);
     }
 }
