@@ -21,8 +21,7 @@ dependencies {
 	implementation ('org.springframework.boot:spring-boot-starter-web') {
 		exclude (module: 'spring-boot-starter-tomcat')
 	}
-	implementation 'com.amazonaws.serverless:aws-serverless-java-container-core:2.0.0'
-	implementation 'org.springframework.cloud:spring-cloud-function-serverless-web:4.1.2'
+	implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.0'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
