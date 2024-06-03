@@ -1,16 +1,10 @@
 package com.example.demo;
 
 import com.amazonaws.serverless.exceptions.ContainerInitializationException;
-import com.amazonaws.serverless.proxy.internal.servlet.AwsLambdaServletContainerHandler;
-import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
-import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
-import com.amazonaws.serverless.proxy.spring.SpringBootAwsProxyExceptionHandler;
-import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
-import com.amazonaws.serverless.proxy.spring.SpringBootProxyHandlerBuilder;
 import com.example.demo.config.MyRuntimeHints;
-import org.springframework.boot.SpringApplication;
+import com.example.demo.config.aws.NativeLambdaContainerHandler;
+import com.example.demo.config.aws.NativeLambdaContainerHandlerBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportRuntimeHints;
 
 import java.io.ByteArrayInputStream;
@@ -31,7 +25,7 @@ public class DemoApplication {
 //        ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
 
         System.out.println(System.getenv("AWS_LAMBDA_INITIALIZATION_TYPE"));
-        SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
+        NativeLambdaContainerHandler handler = new NativeLambdaContainerHandlerBuilder()
                 .defaultProxy()
                 .springBootApplication(DemoApplication.class)
                 .servletApplication()
