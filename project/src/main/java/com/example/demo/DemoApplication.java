@@ -13,7 +13,7 @@ public class DemoApplication {
     private static final Log log = LogFactory.getLog(DemoApplication.class);
 
     public static void main(String[] args) {
-        log.info("started");
+        log.warn("started");
         SpringApplication.run(DemoApplication.class, args);
     }
 }
